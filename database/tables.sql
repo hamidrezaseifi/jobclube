@@ -27,6 +27,13 @@ CREATE SEQUENCE ads_id_sequence
     MAXVALUE 9223372036854775807
     CACHE 1;
 
+CREATE SEQUENCE reviews_id_sequence
+    INCREMENT 1
+    START 1
+    MINVALUE 1
+    MAXVALUE 9223372036854775807
+    CACHE 1;
+
 
 CREATE TABLE users (
   id bigint NOT NULL PRIMARY KEY DEFAULT nextval('users_id_sequence'),
@@ -70,6 +77,17 @@ CREATE TABLE ads (
   title varchar(45) NOT NULL,
   description varchar(45) NOT NULL,
   photo varchar(400) NOT NULL,
+  status smallint NOT NULL DEFAULT 1,
+  version integer NOT NULL DEFAULT 1,
+  created_at timestamp without time zone NOT NULL default (now() at time zone 'utc'),
+  updated_at timestamp without time zone NOT NULL default (now() at time zone 'utc')
+);
+
+CREATE TABLE reviews (
+  id bigint NOT NULL PRIMARY KEY DEFAULT nextval('reviews_id_sequence'),
+  description varchar(45) NOT NULL,
+  user_id bigint NOT NULL,
+  post_id bigint NOT NULL,
   status smallint NOT NULL DEFAULT 1,
   version integer NOT NULL DEFAULT 1,
   created_at timestamp without time zone NOT NULL default (now() at time zone 'utc'),
