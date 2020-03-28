@@ -1,6 +1,6 @@
 package com.seifi.jobclube.controller;
 
-import com.seifi.jobclube.entity.UserEntity;
+import com.seifi.jobclube.entitys.UserEntity;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;

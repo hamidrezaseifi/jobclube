@@ -1,6 +1,6 @@
 package com.seifi.jobclube.repository;
 
-import com.seifi.jobclube.entity.AdvertiseEntity;
+import com.seifi.jobclube.entitys.AdvertiseEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

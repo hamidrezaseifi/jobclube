@@ -1,4 +1,4 @@
-package com.seifi.jobclube.entity;
+package com.seifi.jobclube.entitys;
 
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
@@ -7,22 +7,22 @@ import javax.persistence.*;
 import java.sql.Date;
 
 @Entity
-@Table(name="reviews")
-public class ReviewEntity {
+@Table(name="ads")
+public class AdvertiseEntity {
 
     @Id
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(name = "title")
+    private String title;
+
     @Column(name = "description")
     private String description;
 
-    @Column(name = "user_id")
-    private Long userId;
-
-    @Column(name = "post_id")
-    private Long postId;
+    @Column(name = "photo")
+    private String photo;
 
     @Column(name = "status")
     private Integer status;
@@ -47,6 +47,14 @@ public class ReviewEntity {
         this.id = id;
     }
 
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
     public String getDescription() {
         return description;
     }
@@ -55,20 +63,12 @@ public class ReviewEntity {
         this.description = description;
     }
 
-    public Long getUserId() {
-        return userId;
+    public String getPhoto() {
+        return photo;
     }
 
-    public void setUserId(Long userId) {
-        this.userId = userId;
-    }
-
-    public Long getPostId() {
-        return postId;
-    }
-
-    public void setPostId(Long postId) {
-        this.postId = postId;
+    public void setPhoto(String photo) {
+        this.photo = photo;
     }
 
     public Integer getStatus() {

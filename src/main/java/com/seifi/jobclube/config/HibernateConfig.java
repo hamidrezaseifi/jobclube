@@ -66,7 +66,7 @@ public class HibernateConfig {
         final LocalSessionFactoryBean sessionFactory = new LocalSessionFactoryBean();
 
         sessionFactory.setDataSource(this.restDataSource());
-        sessionFactory.setPackagesToScan(new String[] { "com.seifi.jobclube.entity" });
+        sessionFactory.setPackagesToScan(new String[] { "com.seifi.jobclube.entitys" });
         sessionFactory.setHibernateProperties(HibernateConfig.hibernateProperties());
 
         return sessionFactory;
