@@ -1,23 +1,27 @@
-package com.seifi.jobclube.core.models.edo;
+package com.seifi.jobclube.common.models.edo;
 
-import org.hibernate.annotations.CreationTimestamp;
-import org.hibernate.annotations.UpdateTimestamp;
-
-import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.sql.Date;
 
-public class ReviewEdo {
+
+public class AdvertiseEdo {
+
 
     private Long id;
 
+    @NotNull(message = "Title cannot be null")
+    private String title;
+
+    @NotNull(message = "Description cannot be null")
     private String description;
 
-    private Long userId;
+    @NotNull(message = "Photo cannot be null")
+    private String photo;
 
-    private Long postId;
-
+    @NotNull(message = "Status cannot be null")
     private Integer status;
 
+    @NotNull(message = "Version cannot be null")
     private Integer version;
 
     private Date createdAt;
@@ -33,6 +37,14 @@ public class ReviewEdo {
         this.id = id;
     }
 
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
     public String getDescription() {
         return description;
     }
@@ -41,20 +53,12 @@ public class ReviewEdo {
         this.description = description;
     }
 
-    public Long getUserId() {
-        return userId;
+    public String getPhoto() {
+        return photo;
     }
 
-    public void setUserId(Long userId) {
-        this.userId = userId;
-    }
-
-    public Long getPostId() {
-        return postId;
-    }
-
-    public void setPostId(Long postId) {
-        this.postId = postId;
+    public void setPhoto(String photo) {
+        this.photo = photo;
     }
 
     public Integer getStatus() {
@@ -88,5 +92,4 @@ public class ReviewEdo {
     public void setUpdatedAt(Date updatedAt) {
         this.updatedAt = updatedAt;
     }
-
 }

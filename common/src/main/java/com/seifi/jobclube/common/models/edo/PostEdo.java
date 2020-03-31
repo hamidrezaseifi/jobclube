@@ -1,9 +1,5 @@
-package com.seifi.jobclube.core.models.edo;
+package com.seifi.jobclube.common.models.edo;
 
-import org.hibernate.annotations.CreationTimestamp;
-import org.hibernate.annotations.UpdateTimestamp;
-
-import javax.persistence.*;
 import java.sql.Date;
 
 public class PostEdo {
