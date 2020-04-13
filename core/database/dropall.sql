@@ -9,8 +9,6 @@ DROP SEQUENCE if exists ads_id_sequence;
 
 Drop SEQUENCE if exists reviews_id_sequence;
 
-
-
 DROP table if exists users;
 
 DROP table if exists posts;

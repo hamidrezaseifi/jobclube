@@ -5,6 +5,7 @@ import com.zaxxer.hikari.HikariDataSource;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
@@ -18,14 +19,16 @@ import org.springframework.orm.jpa.vendor.Database;
 import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
+import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.sql.DataSource;
 import java.util.Properties;
 
 @Configuration
 @EnableTransactionManagement
-@PropertySource("classpath:config/db.properties")
-public class HibernateConfig {
+@PropertySource("classpath:config/db-hsq.properties")
+@ConditionalOnProperty(value ="app.db" , havingValue = "hsq", matchIfMissing = false)
+public class HibernateHsqlConfig {
 
     @Value("${poolName}")
     private String poolName;
@@ -60,17 +63,17 @@ public class HibernateConfig {
     @Value("${className}")
     private String className;
 
-    @Bean
+    /*@Bean(name = "sessionFactory")
     public LocalSessionFactoryBean sessionFactory() {
 
         final LocalSessionFactoryBean sessionFactory = new LocalSessionFactoryBean();
 
         sessionFactory.setDataSource(this.restDataSource());
         sessionFactory.setPackagesToScan(new String[] { "com.seifi.jobclube.core.entitys" });
-        sessionFactory.setHibernateProperties(HibernateConfig.hibernateProperties());
+        sessionFactory.setHibernateProperties(HibernateHsqlConfig.hibernateProperties());
 
         return sessionFactory;
-    }
+    }*/
 
     @Bean
     public DataSource restDataSource() {
@@ -117,11 +120,9 @@ public class HibernateConfig {
         return proc;
     }
 
-    /*
-     * @Bean public EntityManager entityManager(final LocalSessionFactoryBean sessionFactory) {
-     *
-     * return sessionFactory.getObject().createEntityManager(); }
-     */
+
+
+
 
     public static Properties hibernateProperties() {
 
@@ -135,7 +136,7 @@ public class HibernateConfig {
             {
                 this.setProperty("hibernate.hbm2ddl.auto", "none");
                 this.setProperty("hibernate.show_sql", "true");
-                this.setProperty("hibernate.dialect", "org.hibernate.dialect.PostgreSQLDialect");
+                this.setProperty("hibernate.dialect", "org.hibernate.dialect.HSQLDialect");
                 this.setProperty("hibernate.temp.use_jdbc_metadata_defaults", "false");
 
             }
@@ -145,12 +146,13 @@ public class HibernateConfig {
     @Bean
     public JpaVendorAdapter jpaVendorAdapter() {
         HibernateJpaVendorAdapter bean = new HibernateJpaVendorAdapter();
-        bean.setDatabase(Database.POSTGRESQL);
+        bean.setDatabase(Database.HSQL);
         bean.setGenerateDdl(true);
         bean.setShowSql(true);
         return bean;
     }
-    @Bean
+
+    @Bean(name = "entityManagerFactory")
     public LocalContainerEntityManagerFactoryBean entityManagerFactory(DataSource dataSource,
                                                                        JpaVendorAdapter jpaVendorAdapter) {
         LocalContainerEntityManagerFactoryBean bean = new LocalContainerEntityManagerFactoryBean();
@@ -159,6 +161,7 @@ public class HibernateConfig {
         bean.setPackagesToScan("com.seifi.jobclube.core");
         return bean;
     }
+
     @Bean
     public JpaTransactionManager transactionManager(EntityManagerFactory emf) {
         return new JpaTransactionManager(emf);
